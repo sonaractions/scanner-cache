@@ -1,0 +1,23 @@
+name: "SonarQube Scanner Cache"
+description: "Cache SonarQube scanner."
+author: "sonaractions"
+
+outputs:
+  cache-hit:
+    description: "A boolean value to indicate an exact match was found for the primary key."
+    value: ${{ steps.cache-sonar-scanner.outputs.cache-hit }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/cache@v3
+      id: cache-sonar-scanner
+      with:
+        path: ~/.sonar/scanner
+        key: ${{ runner.os }}-sonar-scanner
+        restore-keys: ${{ runner.os }}-sonar-scanner
+
+branding:
+  icon: "archive"
+  color: "purple"
+
